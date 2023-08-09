@@ -1,0 +1,69 @@
+html,body {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+button {
+  width: 60px;
+  height: 70px;
+  background-color: white;
+  border-color: transparent;
+  margin: 1px;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #e2e2e2;
+}
+
+.zero button {
+  width: 122px;
+}
+
+.clear button {
+  margin-right: 0px;
+  width: 246px;
+  background-color: #cfd2dc;
+  color: rgb(47, 56, 79);
+}
+.clear button:hover {
+  background-color: #bfc2cb;
+}
+
+.operations button {
+  background-color: #cfd2dc;
+}
+
+.operations button:hover {
+  background-color: #bfc2cb;
+}
+
+
+div {
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  padding: 10px;
+  background-color: lightslategray;
+  float: right;
+}
+
+.screen {
+  background-color: white;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  padding: 5px;
+  word-wrap: break-word;
+
+}
+
+.answer p {
+  text-align: center;
+  float: left;
+}
