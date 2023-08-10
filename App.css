@@ -1,7 +1,8 @@
 html,body {
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: right;
+
 }
 
 button {
@@ -51,7 +52,9 @@ div {
   justify-items: center;
   padding: 10px;
   background-color: lightslategray;
-  float: right;
+  margin: 6px;
+  padding: 20px;
+  border-radius: 15px;
 }
 
 .screen {
@@ -60,10 +63,14 @@ div {
   border-radius: 7px;
   padding: 5px;
   word-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
 
 }
 
-.answer p {
-  text-align: center;
-  float: left;
+.answer {
+  align-items: center;
+  margin-right: 10px;
+  display: flex;
 }

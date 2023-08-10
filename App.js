@@ -3,60 +3,59 @@ import './App.css';
 import Number from './Number';
 
 function App() {
-  const [input, setInput] = useState('');
-  const [operation, setOperation] = useState('');
+  const [input, setInput] = useState('');     // nicely formatted label that appears on screen
+  const [eqn, setEqn] = useState('0+');       // string holding equation
   const [lastNum, setLastNum] = useState('');
-  const [temp, setTemp] = useState(NaN);
   const [answer, setAnswer] = useState(NaN);
 
   const handleClickNumber = (num) => {
-    if (input.slice(-1) === '.' && num === '.') { // check last input was not '.'
+    if (num === '.' && lastNum.includes('.')) { // check last input was not '.'
       return;
     } else {
       const c = num === '.' ? '.' : num.toString();
       setInput((prev) => prev.toString() + c);
+      setEqn((prev) => prev.toString() + c);
       setLastNum((prev) => prev.toString() + c);   //save last number
     }
   }
 
   const handleClickOperation = (op) => {
     if (!isNaN(parseInt(input.slice(-1)))) { //check if last input was a digit
-      setInput((prev) => prev.toString() + " " + op + " ")
-      setTemp(answer);
+      setInput((prev) => prev.toString() +  " " + op + " ")
       setLastNum('');
-      setOperation(op);
+
+      switch(op) {
+        case '':
+          setEqn((prev) => prev.toString());
+          break;
+        case '+':
+          setEqn((prev) => prev.toString() + '+');
+          break;
+        case '-':
+          setEqn((prev) => prev.toString() + '-');
+          break;
+        case '×':
+          setEqn((prev) => prev.toString() + '*');
+          break;
+        case '÷':
+          setEqn((prev) => prev.toString() + '/');
+          break;
+      }
     }
   }
 
   const handleClear = () => {
     setInput('');
+    setEqn('0+');
     setLastNum('');
-    setOperation('');
     setAnswer(NaN);
-    setTemp(NaN);
   }
 
   useEffect( () => {
-    if (lastNum !== '') {
-      switch(operation) {
-        case '':
-          setAnswer(lastNum);
-          break;
-        case '+':
-          setAnswer(parseFloat(temp) + parseFloat(lastNum));
-          break;
-        case '-':
-          setAnswer(parseFloat(temp) - lastNum);
-          break;
-        case '×':
-          setAnswer(parseFloat(temp) * lastNum);
-          break;
-        case '÷':
-          setAnswer(parseFloat(temp) / lastNum);
-          break;
-      }
+    if (!isNaN(parseInt(input.slice(-1)))) {
+      setAnswer(eval(eqn))
     }
-  }, [lastNum]);
+  }, [eqn]);
 
   const nums = [1,2,3,4,5,6,7,8,9,0,'.'];
   const numbers = nums.map((num) => <Number key={num} value={num} handleClick={handleClickNumber} />);
@@ -67,7 +66,7 @@ function App() {
     <div className="container">
       <div className="screen">
         <p>&nbsp;{input||''}</p>
-        <p className="answer">&nbsp;{(isNaN(answer)) ? '' : ' = ' + answer}</p>
+        <div className="answer" >&nbsp;{(isNaN(answer)) ? '' : ' = ' + answer}</div>
       </div>
       <div><div className="numbers" >{numbers.slice(0,3)}</div><div className="operations">{operations[0]}</div></div> {/* 1 2 3 + */}
       <div><div className="numbers" >{numbers.slice(3,6)}</div><div className="operations">{operations[1]}</div></div> {/* 4 5 6 - */}
